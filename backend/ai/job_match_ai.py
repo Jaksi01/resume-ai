@@ -1,5 +1,12 @@
-import ollama
+from openai import AzureOpenAI
 import json
+import os
+
+client = AzureOpenAI(
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_version="2024-10-21",
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+)
 
 
 def replace_nulls(obj):
@@ -240,21 +247,19 @@ Use EXACTLY this structure:
 Return ONLY the JSON object.
 """
 
-    response = ollama.chat(
-        model="phi3",
-        format="json",
-        options={
-            "temperature": 0
-        },
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+    response = client.chat.completions.create(
+    model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+    messages=[
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ],
+    temperature=0,
+    response_format={"type": "json_object"}
+)
 
-    result = response["message"]["content"]
+    result = response.choices[0].message.content
 
     print(result)
 

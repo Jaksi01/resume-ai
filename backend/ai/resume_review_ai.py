@@ -1,11 +1,16 @@
-import ollama
 import json
-import re
+from openai import AzureOpenAI
+import os
 
+client = AzureOpenAI(
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_version="2024-10-21",
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+)
 
 def analyze_resume_review(text):
 
-    prompt = prompt = f"""
+    prompt = f"""
 TASK:
 Analyze the resume and return ONLY a valid JSON object.
 
@@ -74,44 +79,28 @@ Return ONLY the JSON object.
 
 
 
-    response = ollama.chat(
-        model='phi3',
-        messages=[
-            {
-                'role': 'user',
-                'content': prompt
-            }
-        ]
-    )
+    response = client.chat.completions.create(
+    model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+    messages=[
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ],
+    temperature=0,
+    response_format={"type": "json_object"}
+)
 
-    result = response['message']['content']
+    result = response.choices[0].message.content
 
     print(result)
 
-    # AMBIL JSON SAJA
-    match = re.search(r'\{.*\}', result, re.DOTALL)
+    try:
+        parsed_result = json.loads(result)
+        return parsed_result
 
-    if match:
-
-        json_text = match.group(0)
-
-        # HAPUS TRAILING COMMA
-        json_text = re.sub(r',\s*]', ']', json_text)
-        json_text = re.sub(r',\s*}', '}', json_text)
-
-        try:
-            parsed_result = json.loads(json_text)
-            return parsed_result
-
-        except Exception as e:
-
-            return {
-                "error": str(e),
-                "cleaned_json": json_text,
-                "raw_response": result
-            }
-
-    return {
-        "error": "No valid JSON found",
+    except Exception as e:
+        return {
+        "error": str(e),
         "raw_response": result
     }

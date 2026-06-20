@@ -14,7 +14,7 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("http://127.0.0.1:8000/login", {
+    const res = await fetch("https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

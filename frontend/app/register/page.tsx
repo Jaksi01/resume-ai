@@ -34,7 +34,7 @@ export default function RegisterPage() {
 
     try {
       const res = await fetch(
-        "http://127.0.0.1:8000/register",
+        "https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/register",
         {
           method: "POST",
           headers: {

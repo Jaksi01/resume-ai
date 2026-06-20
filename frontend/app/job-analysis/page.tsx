@@ -49,7 +49,7 @@ export default function Home() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/job-analysis",
+        "https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/job-analysis",
         formData,
         {
           headers: {
@@ -475,7 +475,7 @@ export default function Home() {
 
   {analysisId && (
     <a
-      href={`http://localhost:8000/download/${analysisId}`}
+      href={`https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/download/${analysisId}`}
       target="_blank"
       rel="noopener noreferrer"
       className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg"

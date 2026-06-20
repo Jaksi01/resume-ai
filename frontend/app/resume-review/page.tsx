@@ -46,7 +46,7 @@ export default function Home() {
     try {
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/resume-review",
+        "https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/resume-review",
         formData
       );
 
@@ -343,7 +343,7 @@ export default function Home() {
     </a>
 
     <a
-      href="http://127.0.0.1:8000/download/1"
+      href="https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/download/1"
       target="_blank"
       className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transition"
     >

@@ -14,7 +14,7 @@ export default function HistoryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/history/1")
+    fetch("https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/history/1")
       .then((res) => res.json())
       .then((data) => {
         console.log("DATA:", data);
@@ -89,7 +89,7 @@ export default function HistoryPage() {
                   <div className="flex gap-3">
 
                     <a
-                      href={`http://127.0.0.1:8000/history/detail/${item.id}`}
+                      href={`https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/history/detail/${item.id}`}
                       target="_blank"
                       className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl"
                     >
@@ -97,7 +97,7 @@ export default function HistoryPage() {
                     </a>
 
                     <a
-                      href={`http://127.0.0.1:8000/download/${item.id}`}
+                      href={`https://ai-resume-analyzer-gac3h0dmdahmhnbf.indonesiacentral-01.azurewebsites.net/download/${item.id}`}
                       className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-xl"
                     >
                       Download PDF
